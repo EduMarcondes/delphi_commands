@@ -1,0 +1,9 @@
+function convertHoras(valor : variant): Variant;
+var
+  hora,minuto : double;
+begin
+    hora := (StrToFloat(Trim(ReplaceText(valor,'-',''))) * 50) / 60;
+    minuto := (hora - int(hora)) * 60;
+    
+    result := FormatFloat('00',hora) + ':' + FormatFloat('00',minuto);
+end;
