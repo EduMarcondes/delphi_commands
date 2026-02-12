@@ -1,0 +1,25 @@
+function calcularIdade(data_hoje,data_nasc :variant): Variant;
+var
+  dia,mes,ano,idade,iAno, iMes, iDia : integer;
+begin
+      ano  := StrToInt(Copy(ReplaceText(data_nasc,'/',''),5,4));
+      mes  := StrToInt(Copy(ReplaceText(data_nasc,'/',''),3,2));
+      dia  := StrToInt(Copy(ReplaceText(data_nasc,'/',''),1,2));
+      iAno := StrToInt(Copy(ReplaceText(data_hoje,'/',''),5,4));
+      iMes := StrToInt(Copy(ReplaceText(data_hoje,'/',''),3,2));
+      iDia := StrToInt(Copy(ReplaceText(data_hoje,'/',''),1,2));
+
+      idade := iAno - ano;
+
+      if iMes < mes then
+      begin
+           idade := idade - 1;
+      end
+      else
+      if (iDia < dia)and(iMes = mes) then
+      begin
+          idade := idade - 1;
+      end;
+
+      result := IntToStr(idade) + ' anos';
+end;
