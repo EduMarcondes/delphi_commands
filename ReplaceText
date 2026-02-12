@@ -1,0 +1,18 @@
+function ReplaceText(sTexto, sBusca, sSubst : string) : string;
+var
+    iPos : integer;
+begin
+    {Substitui sBusca por sSubst em sTexto}
+    Result := sTexto;
+    {Definindo a posição da primeira ocorrência de sTexto}
+    iPos := Pos(sBusca, Result);
+    while iPos > 0 do
+    begin
+        {Removendo sBusca de sTexto}
+        Delete(Result, iPos, length(sBusca));
+        {Inserindo sSubst na posição desejada}
+        Insert(sSubst, Result, iPos);
+        {Busca a próxima ocorrência de sBusca}
+        iPos := Pos(sBusca, Result);
+    end;
+end;
