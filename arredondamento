@@ -1,0 +1,16 @@
+function Arredondar(valor:double): variant;
+var
+  nota : double;
+begin
+
+	if valor > 0 then
+	begin
+      nota := trunc(valor * 100) / 100;
+      
+      result := FormatFloat('#0.0',nota);
+	end
+	else
+	begin
+		result := valor;
+	end;
+end;
