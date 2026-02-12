@@ -1,0 +1,80 @@
+function coalesce(valor : variant):variant;
+begin
+     if valor = null then
+     begin
+          result := 0;
+     end
+     else
+     begin
+          result := valor;
+     end;
+end;
+
+var
+   sPeriodo, sExame, sRec, sMedia, Media : variant;
+   y, cont: integer;
+   disc,discExame : Tdisciplina;
+begin
+     disc := disc.BuscaEtapa(7,teNORMAL);
+     discExame := disc.BuscaEtapa(14,teMEDIA_APOS_EXAME);
+
+     if Disciplina.PossuiSetor then
+     begin
+          for y := 0 to disc.QtdeSetores - 1 do
+          begin
+               sPeriodo := disc.Setores[y].nota;
+               sExame := discExame.Setores[y].nota;
+               sRec := disc.Setores[y].nota;
+
+               if sRec <> null then
+               begin
+                    media := media + max(sPeriodo,sRec);
+                    cont := 1;
+               end
+               else
+               if (sExame <> null)and(sRec = null) then
+               begin
+                    media := media + max(sPeriodo,sExame);
+               end
+               else
+               begin
+                    media := media + sPeriodo;
+               end;
+          end;
+
+          if cont = 1 then
+          begin
+               if media > 0 then
+               begin
+                    media := media / y;
+               end;
+
+               Media := Arredonda(coalesce(media),ARREDONDA_TRUNCADO,2);
+          end
+          else
+          begin
+               Media := null;
+          end;
+     end
+     else
+     begin
+          sRec := Nota;
+          sPeriodo := Media;
+
+          if sRec = null then
+          begin
+               Media := null;
+          end
+          else
+          begin
+               sMedia := sPeriodo + sRec;
+
+               if sMedia > 0 then
+               begin
+                    sMedia := sMedia / 2;
+               end;
+
+               Media := Arredonda(sMedia,ARREDONDA_TRUNCADO,2);
+          end;
+     end;
+end.
