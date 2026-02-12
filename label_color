@@ -1,0 +1,53 @@
+procedure ColorirValor(MinhaLabel: TppLabel; aValorString: String);
+var
+  lsTemp: String;
+  liValorInt: Integer;
+  liPos: Integer;
+  lbProcessar: Boolean;
+  lbNegativo: Boolean;
+begin
+  MinhaLabel.Font.Color := clBlack;
+  lbProcessar := True;
+  lbNegativo := False;
+
+  lsTemp := Trim(aValorString);
+
+  if (Length(lsTemp) = 0) then
+    lbProcessar := False
+  else if (CompareText(lsTemp, 'Mé. fi. 0') = 0) then
+    lbProcessar := False;
+
+  if lbProcessar then
+  begin
+    if (Pos('-', lsTemp) = 1) then
+    begin
+      lbNegativo := True;
+      lsTemp := Copy(lsTemp, 2, Length(lsTemp) - 1);
+      lsTemp := Trim(lsTemp);
+    end;
+
+    liPos := Pos(',', lsTemp);
+
+    if liPos = 0 then
+      liPos := Pos('.', lsTemp);
+
+    if liPos > 0 then
+    begin
+      lsTemp := Copy(lsTemp, 1, liPos - 1);
+      lsTemp := Trim(lsTemp);
+    end;
+
+    if Length(lsTemp) > 0 then
+    begin
+      liValorInt := StrToInt(lsTemp);
+
+      if lbNegativo then
+        liValorInt := liValorInt * -1;
+
+      if liValorInt < 5 then
+        MinhaLabel.Font.Color := clRed
+      else if liValorInt > 4 then
+        MinhaLabel.Font.Color := clBlack;
+    end;
+  end;
+end;
