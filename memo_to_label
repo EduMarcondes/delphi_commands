@@ -1,0 +1,18 @@
+memo1.text
+  i : integer;
+begin
+	i := memo1.lines.count -1;
+	texto1.text := '';
+	texto2.text := '';
+	texto3.text := '';
+
+	if i > 0 then
+	begin	showmessage('entre 1');
+		texto1.text := memo1.lines[0];
+		texto2.text := memo1.lines[1];
+	end
+	else
+	begin showmessage('entre 2');
+		texto3.text := memo1.lines[0];
+	end;
+end;
